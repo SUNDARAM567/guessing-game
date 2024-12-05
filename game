@@ -23,4 +23,23 @@ with col1:
 with col2:
     if st.button("Too High"):
         st.session_state.high = st.session_state.guess - 1
-…
+        st.session_state.attempts += 1
+
+with col3:
+    if st.button("Correct!"):
+        st.success(f"I guessed your number *{st.session_state.guess}* in {st.session_state.attempts} attempts!")
+        st.session_state.low = 1
+        st.session_state.high = 100
+        st.session_state.attempts = 0
+
+if st.session_state.low <= st.session_state.high:
+    st.session_state.guess = (st.session_state.low + st.session_state.high) // 2
+else:
+    st.error("It seems like there was a mistake. Please restart the game.")
+
+if st.button("Reset Game"):
+    st.session_state.low = 1
+    st.session_state.high = 100
+    st.session_state.guess = (st.session_state.low + st.session_state.high) // 2
+    st.session_state.attempts = 0
+    st.success("Game has been reset! Start thinking of a new number.")
